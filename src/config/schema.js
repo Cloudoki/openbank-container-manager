@@ -84,11 +84,13 @@ const schema = {
 		username: {
 			doc: 'Dockerhub username',
 			format: String,
+			default: '',
 			env: 'OBCMANAGER_DH_USERNAME',
 		},
 		password: {
 			doc: 'Dockerhub pasword',
 			format: String,
+			default: '',
 			env: 'OBCMANAGER_DH_PASSWORD',
 		},
 	},
