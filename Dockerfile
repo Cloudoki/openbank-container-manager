@@ -12,6 +12,6 @@ RUN sed -i '/"eslint": "^5.2.0"/d' ./package.json
 RUN yarn
 RUN yarn run doc
 
-EXPOSE 3003
+EXPOSE 3000
 
 ENTRYPOINT /usr/local/bin/dockerd-entrypoint.sh & yarn start
