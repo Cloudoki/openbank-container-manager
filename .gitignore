@@ -61,3 +61,5 @@ docs
 *.sh
 
 !test_seed.sql
+
+output

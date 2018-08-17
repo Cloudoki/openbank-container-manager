@@ -15,7 +15,7 @@ const schema = {
 		port: {
 			doc: 'The port to bind.',
 			format: 'port',
-			default: 3003,
+			default: 3000,
 			env: 'OBCMANAGER_API_PORT',
 		},
 		routes: {
@@ -69,7 +69,7 @@ const schema = {
 			name: {
 				doc: 'API logger name',
 				format: String,
-				default: 'apigen',
+				default: 'obcmanager',
 			},
 			level: {
 				doc: 'Logger level',
@@ -79,6 +79,18 @@ const schema = {
 			},
 		},
 		pretty: false,
+	},
+	dockerhub: {
+		username: {
+			doc: 'Dockerhub username',
+			format: String,
+			env: 'OBCMANAGER_DH_USERNAME',
+		},
+		password: {
+			doc: 'Dockerhub pasword',
+			format: String,
+			env: 'OBCMANAGER_DH_PASSWORD',
+		},
 	},
 }
 

@@ -1,12 +1,19 @@
-exports = module.exports = {}
+const joi = require('joi')
 
-//const healthSrvc = require('../../services/health')
+const ciSrvc = require('../../services/container-image')
+
+exports = module.exports = {}
 
 /** handler for /build endpoint */
 exports.build = {
+	validate: {
+		query: {
+			name: joi.string().required(),
+		},
+	},
 	handler: async (request, h) => {
 
-		//await healthSrvc.test()
+		await ciSrvc.build(request.query.name, request.payload, `${__dirname}/../../../output/`)
 
 		return h.response().code(200)
 
