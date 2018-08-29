@@ -16,6 +16,11 @@ exports.plugin = {
 				path: '/build',
 				options: handlers.build,
 			},
+			{
+				method: 'POST',
+				path: '/start/{image}',
+				options: handlers.start,
+			},
 		])
 	},
 	name: 'obcmanager-contaniner',

@@ -8,7 +8,7 @@ const log = require('../../utils/logger')
 
 exports = module.exports = {}
 
-exports.build = async (imageName, archive, targetPath) => {
+exports.buildImage = async (imageName, archive, targetPath) => {
 
 	log.debug(`building image: ${imageName}`)
 
@@ -45,3 +45,25 @@ exports.build = async (imageName, archive, targetPath) => {
 
 }
 
+exports.start = async (imageName, containerName) => {
+
+	log.debug(`starting image: ${imageName}, with name: ${containerName}`)
+
+	try {
+		//const { stdout, stderr } = await exec(`docker build -t ${imageName} -f ${targetPath}Dockerfile ${targetPath}`)
+
+		log.debug('logging into docker hub')
+		await exec(`docker login -u ${dockerConfig.username} -p ${dockerConfig.password}`)
+
+		log.debug('running image')
+		await exec(`docker run -d --name ${containerName} --network openbank cloudokihub/${imageName}`)
+
+		log.debug('logging out from docker hub')
+		await exec('docker logout')
+
+	} catch (err) {
+		log.error(err)
+		throw err
+	}
+
+}
