@@ -56,7 +56,7 @@ exports.start = async (imageName, containerName) => {
 		await exec(`docker login -u ${dockerConfig.username} -p ${dockerConfig.password}`)
 
 		log.debug('running image')
-		await exec(`docker run -d --name ${containerName} --network openbank cloudokihub/${imageName}`)
+		await exec(`docker run -d --name ${containerName} --network kong-net cloudokihub/${imageName}`)
 
 		log.debug('logging out from docker hub')
 		await exec('docker logout')
