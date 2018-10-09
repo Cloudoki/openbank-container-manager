@@ -1,6 +1,7 @@
 const joi = require('joi')
-
+const kongConfig = require('../../config').get('kong')
 const containerSrvc = require('../../services/container')
+const Wreck = require('wreck')
 
 exports = module.exports = {}
 
@@ -49,9 +50,16 @@ exports.start = {
 	},
 	handler: async (request, h) => {
 
-		await containerSrvc.start(request.params.image, request.payload.name)
+		try {
+			const org = request.headers['x-openbank-organization']
+			await containerSrvc.start(request.params.image, org)
+			await Wreck.post(`http://${kongConfig.admin_api.url}/upstreams/${org}/targets/${org}:3000/healthy`)
 
-		return h.response().code(200)
+		} catch (error) {
+			return h.response(error.message).code(400)	
+		}
+
+		return h.response().code(302)
 
 	},
 	id: 'obcmanager-start',

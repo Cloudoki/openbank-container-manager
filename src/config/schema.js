@@ -93,6 +93,15 @@ const schema = {
 			default: '',
 			env: 'OBCMANAGER_DH_PASSWORD',
 		},
+		baseSandboxImage: {
+			name: 'sandbox-api',
+			version: '1.4.0.47',
+		},
+	},
+	kong: {
+		admin_api: {
+			url: 'http://kong-admin-api:8001',
+		},
 	},
 }
 

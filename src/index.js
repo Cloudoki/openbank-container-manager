@@ -18,6 +18,24 @@ async function start () {
 
 	const plugins = config.get('plugins').map(plugin => require(plugin))
 
+	server.ext({
+		type:'onRequest',
+		method: async (req, h) => {
+
+			const org = req.headers['x-openbank-organization']
+			const version = req.headers['x-openbank-stet-version']
+
+			if (org) {
+				req.setUrl(`/start/${version}`)
+				req.setMethod('POST')
+
+				return h.continue
+			}
+
+			return h.continue
+		},
+	})
+
 	await server.register(plugins)
 
 	await server.start()
