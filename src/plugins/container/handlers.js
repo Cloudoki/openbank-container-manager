@@ -43,14 +43,14 @@ exports.start = {
 		params: {
 			image: joi.string().required(),
 		},
-		payload: {
-			name: joi.string().required(),
-		},
+		headers: joi.object({
+			'x-openbank-organization': joi.string().required(),
+		}).options({allowUnknown: true}),
 	},
 	handler: async (request, h) => {
 
-		await containerSrvc.start(request.params.image, request.payload.name)
-
+		await containerSrvc.start(request.params.image, request.headers['x-openbank-organization'])
+		
 		return h.response().code(200)
 
 	},
