@@ -102,6 +102,14 @@ const schema = {
 		admin_api: {
 			url: 'http://kong-admin-api:8001',
 		},
+		instance: {
+			network: {
+				doc: 'The kong docker network name',
+				format: String,
+				default: 'kong-network',
+				env: 'OBCMANAGER_KONG_NETWORK',
+			},
+		},
 	},
 }
 
