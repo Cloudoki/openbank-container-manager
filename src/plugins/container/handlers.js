@@ -1,7 +1,5 @@
 const joi = require('joi')
-const kongConfig = require('../../config').get('kong')
 const containerSrvc = require('../../services/container')
-const Wreck = require('wreck')
 
 exports = module.exports = {}
 
@@ -43,10 +41,6 @@ exports.start = {
 	validate: {
 		params: {
 			image: joi.string().required(),
-		},
-		headers: {
-			'x-openbank-organization' : joi.string().required(),
-			'x-openbank-stet-version' : joi.string().required(),
 		},
 	},
 	handler: async (request, h) => {
