@@ -59,8 +59,8 @@ exports.start = async (imageName, containerName) => {
 	try {
 		//const { stdout, stderr } = await exec(`docker build -t ${imageName} -f ${targetPath}Dockerfile ${targetPath}`)
 
-		log.debug('logging into docker hub')
-		await exec(`docker login -u ${dockerConfig.username} -p ${dockerConfig.password}`)
+		//log.debug('logging into docker hub')
+		//await exec(`docker login -u ${dockerConfig.username} -p ${dockerConfig.password}`)
 
 		log.debug('check if container is running')
 
@@ -81,8 +81,8 @@ exports.start = async (imageName, containerName) => {
 		log.debug('running image')
 		await exec(`docker run -d --name ${containerName} --network ${kongConfig.instance.network} cloudokihub/${dockerConfig.baseSandboxImage.name}:${imageName || dockerConfig.baseSandboxImage.version}`)
 
-		log.debug('logging out from docker hub')
-		await exec('docker logout')
+		//log.debug('logging out from docker hub')
+		//await exec('docker logout')
 
 	} catch (err) {
 		log.error(err)

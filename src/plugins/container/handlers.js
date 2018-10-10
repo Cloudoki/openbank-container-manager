@@ -44,8 +44,9 @@ exports.start = {
 		params: {
 			image: joi.string().required(),
 		},
-		payload: {
-			name: joi.string().required(),
+		headers: {
+			'x-openbank-organization' : joi.string().required(),
+			'x-openbank-stet-version' : joi.string().required(),
 		},
 	},
 	handler: async (request, h) => {
@@ -53,8 +54,6 @@ exports.start = {
 		try {
 			const org = request.headers['x-openbank-organization']
 			await containerSrvc.start(request.params.image, org)
-			await Wreck.post(`http://${kongConfig.admin_api.url}/upstreams/${org}/targets/${org}:3000/healthy`)
-
 		} catch (error) {
 			return h.response(error.message).code(400)	
 		}
