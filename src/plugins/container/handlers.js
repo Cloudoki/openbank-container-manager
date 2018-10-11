@@ -43,6 +43,9 @@ exports.start = {
 		params: {
 			image: joi.string().required(),
 		},
+		headers: joi.object({
+			'x-openbank-organization': joi.string().required(),
+		}).options({allowUnknown: true}),
 	},
 	handler: async (request, h) => {
 
