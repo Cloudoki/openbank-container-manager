@@ -4,7 +4,13 @@ const util = require('util')
 const exec = util.promisify(require('child_process').exec)
 
 const dockerConfig = require('../../config').get('dockerhub')
+const kongConfig = require('../../config').get('kong')
 const log = require('../../utils/logger')
+const dockerCli = require('docker-cli-js')
+
+const Docker = dockerCli.Docker
+
+const docker = new Docker()
 
 exports = module.exports = {}
 
@@ -52,14 +58,30 @@ exports.start = async (imageName, containerName) => {
 	try {
 		//const { stdout, stderr } = await exec(`docker build -t ${imageName} -f ${targetPath}Dockerfile ${targetPath}`)
 
-		log.debug('logging into docker hub')
-		await exec(`docker login -u ${dockerConfig.username} -p ${dockerConfig.password}`)
+		//log.debug('logging into docker hub')
+		//await exec(`docker login -u ${dockerConfig.username} -p ${dockerConfig.password}`)
+
+		log.debug('check if container is running')
+
+		const runningList = await docker.command(`ps -f "name=${containerName}" -f "status=running"`)
+
+		if (runningList.containerList.length > 0) return
+
+		log.debug('check if container at least exists. Must be removed first.')
+
+		const existingList = await docker.command(`ps --all -f "name=${containerName}"`)
+
+		if (existingList.containerList.length > 0 ){
+			await docker.command(`start ${containerName}`)
+
+			return
+		}
 
 		log.debug('running image')
-		await exec(`docker run -d --name ${containerName} --network kong-net cloudokihub/${imageName}`)
+		await exec(`docker run -d --name ${containerName} --network ${kongConfig.instance.network} cloudokihub/${dockerConfig.baseSandboxImage.name}:${imageName || dockerConfig.baseSandboxImage.version}`)
 
-		log.debug('logging out from docker hub')
-		await exec('docker logout')
+		//log.debug('logging out from docker hub')
+		//await exec('docker logout')
 
 	} catch (err) {
 		log.error(err)

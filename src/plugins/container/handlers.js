@@ -1,6 +1,6 @@
 const joi = require('joi')
-
 const containerSrvc = require('../../services/container')
+const kongConfig = require('../../config').get('kong').instance
 
 exports = module.exports = {}
 
@@ -49,10 +49,18 @@ exports.start = {
 	},
 	handler: async (request, h) => {
 
-		await containerSrvc.start(request.params.image, request.headers['x-openbank-organization'])
-		
-		return h.response().code(200)
+		try {
+			const org = request.headers['x-openbank-organization']
+			await containerSrvc.start(request.params.image, org)
+		} catch (error) {
+			return h.response(error.message).code(400)	
+		}
 
+		
+
+		return h.response()
+			.header('location', `${kongConfig.gateway}${request.query['path']}`)
+			.code(302)
 	},
 	id: 'obcmanager-start',
 	description: 'start endpoint',

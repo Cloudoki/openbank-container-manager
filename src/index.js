@@ -23,9 +23,10 @@ async function start () {
 		method: async (req, h) => {
 
 			const org = req.headers['x-openbank-organization']
+			const version = req.headers['x-openbank-stet-version']
 
 			if (org) {
-				req.setUrl(`/start/${org}`)
+				req.setUrl(`/start/${version}?path=${req.path}`)
 				req.setMethod('POST')
 
 				return h.continue

@@ -93,6 +93,29 @@ const schema = {
 			default: '',
 			env: 'OBCMANAGER_DH_PASSWORD',
 		},
+		baseSandboxImage: {
+			name: 'sandbox-api',
+			version: '1.4.0.47',
+		},
+	},
+	kong: {
+		admin_api: {
+			url: 'http://kong-admin-api:8001',
+		},
+		instance: {
+			network: {
+				doc: 'The kong docker network name',
+				format: String,
+				default: 'kong-network',
+				env: 'OBCMANAGER_KONG_NETWORK',
+			},
+			gateway: {
+				doc: 'The kong api gateway url',
+				format: String,
+				default: 'http://localhost:8000',
+				env: 'OBCMANAGER_KONG_GATEWAY_URL',
+			},
+		},
 	},
 }
 
