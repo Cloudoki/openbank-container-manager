@@ -1,6 +1,7 @@
 const joi = require('joi')
 const containerSrvc = require('../../services/container')
 const kongConfig = require('../../config').get('kong').instance
+const Wreck = require('wreck')
 
 exports = module.exports = {}
 
@@ -56,10 +57,14 @@ exports.start = {
 			return h.response(error.message).code(400)	
 		}
 
-		
 
-		return h.response()
-			.header('location', `${kongConfig.gateway}${request.query['path']}`)
+		const url = `${kongConfig.gateway}${request.query['path']}`
+		
+		return h.response({
+			message: `The sandbox has restarted. Please re-issue a request to ${url}`,
+		})
+			.header('x-openbank-organization', request.headers['x-openbank-organization'])
+			.header('x-openbank-stet-version', request.headers['x-openbank-stet-version'])
 			.code(302)
 	},
 	id: 'obcmanager-start',
