@@ -26,7 +26,7 @@ async function start () {
 			const version = req.headers['x-openbank-stet-version']
 
 			if (org) {
-				req.setUrl(`/start/${version}`)
+				req.setUrl(`/start/${version}?path=${req.path}`)
 				req.setMethod('POST')
 
 				return h.continue

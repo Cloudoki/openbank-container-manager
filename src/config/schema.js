@@ -109,6 +109,12 @@ const schema = {
 				default: 'kong-network',
 				env: 'OBCMANAGER_KONG_NETWORK',
 			},
+			gateway: {
+				doc: 'The kong api gateway url',
+				format: String,
+				default: 'http://localhost:8000',
+				env: 'OBCMANAGER_KONG_GATEWAY_URL',
+			},
 		},
 	},
 }

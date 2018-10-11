@@ -12,7 +12,6 @@ const Docker = dockerCli.Docker
 
 const docker = new Docker()
 
-
 exports = module.exports = {}
 
 exports.buildImage = async (imageName, archive, targetPath) => {
