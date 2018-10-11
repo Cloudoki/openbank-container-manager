@@ -1,0 +1,27 @@
+{
+	"server": {
+		"routes": {
+			"cors": {
+				"origin": [
+					"*"
+				],
+				"additionalHeaders": [
+					"Accept",
+					"Authorization",
+					"Content-Type",
+					"If-None-Match",
+					"Accept-language"
+				]
+			}
+		}
+	},
+	"swagger": {
+		"scheme": [
+			"http"
+		],
+		"host": "api"
+	},
+	"pino": {
+		"pretty": true
+	}
+}
