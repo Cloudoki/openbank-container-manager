@@ -5,6 +5,7 @@ const exec = util.promisify(require('child_process').exec)
 
 const dockerConfig = require('../../config').get('dockerhub')
 const kongConfig = require('../../config').get('kong')
+const authConfig = require('../../config').get('auth')
 const log = require('../../utils/logger')
 const dockerCli = require('docker-cli-js')
 
@@ -78,7 +79,7 @@ exports.start = async (imageName, containerName) => {
 		}
 
 		log.debug('running image')
-		await exec(`docker run -d --name ${containerName} --network ${kongConfig.instance.network} cloudokihub/${dockerConfig.baseSandboxImage.name}:${imageName || dockerConfig.baseSandboxImage.version}`)
+		await exec(`docker run -d --name ${containerName} -e SANDBOX_AUTH_SERVER_URL=${authConfig.url} --network ${kongConfig.instance.network} cloudokihub/${dockerConfig.baseSandboxImage.name}:${imageName || dockerConfig.baseSandboxImage.version}`)
 
 		//log.debug('logging out from docker hub')
 		//await exec('docker logout')
