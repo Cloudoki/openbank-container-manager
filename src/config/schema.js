@@ -117,6 +117,14 @@ const schema = {
 			},
 		},
 	},
+	auth: {
+		url: {
+			doc: 'The auth server url',
+			format: String,
+			default: 'https://auth.develop.openbankportal.be',
+			env: 'OBCMANAGER_AUTH_SERVER_URL',
+		},
+	},
 }
 
 module.exports = schema
