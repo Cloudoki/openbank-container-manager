@@ -94,8 +94,18 @@ const schema = {
 			env: 'OBCMANAGER_DH_PASSWORD',
 		},
 		baseSandboxImage: {
-			name: 'sandbox-api',
-			version: '1.4.0.47',
+			name: {
+				doc: 'The sandbox image name',
+				format: String,
+				default: 'openbank-sandbox-api',
+				env: 'OBCMANAGER_SANDBOX_IMAGE_NAME',
+			},
+			version: {
+				doc: 'The sandbox version name',
+				format: String,
+				default: '1.4.0.47.develop',
+				env: 'OBCMANAGER_SANDBOX_VERSION',
+			},
 		},
 	},
 	kong: {
