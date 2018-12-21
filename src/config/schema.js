@@ -106,6 +106,12 @@ const schema = {
 				default: '1.4.0.47.develop',
 				env: 'OBCMANAGER_SANDBOX_VERSION',
 			},
+			fullName: {
+				doc: 'The fully qualified docker image and tag',
+				format : String,
+				default: 'cloudokihub/openbank-sandbox-api:1.4.0.47.develop',
+				env: 'OBCMANAGER_SANDBOX_FULL_NAME',
+			},
 		},
 	},
 	kong: {

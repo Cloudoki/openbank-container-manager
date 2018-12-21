@@ -79,7 +79,8 @@ exports.start = async (imageName, containerName) => {
 		}
 
 		log.debug('running image')
-		await exec(`docker run -d --name ${containerName} -e SANDBOX_AUTH_SERVER_URL=${authConfig.url} --network ${kongConfig.instance.network} cloudokihub/${dockerConfig.baseSandboxImage.name}:${imageName || dockerConfig.baseSandboxImage.version}`)
+		//await exec(`docker run -d --name ${containerName} -e SANDBOX_AUTH_SERVER_URL=${authConfig.url} --network ${kongConfig.instance.network} cloudokihub/${dockerConfig.baseSandboxImage.name}:${imageName || dockerConfig.baseSandboxImage.version}`)
+		await exec(`docker run -d --name ${containerName} -e SANDBOX_AUTH_SERVER_URL=${authConfig.url} --network ${kongConfig.instance.network} ${dockerConfig.baseSandboxImage.fullName}`)
 
 		//log.debug('logging out from docker hub')
 		//await exec('docker logout')
