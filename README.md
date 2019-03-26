@@ -33,6 +33,7 @@ For that, run
 `lint`																| Runs the linter
 `test`																| Runs the unit tests with `lab`
 `doc`																	| Generates the api documentation accessible at http://localhost:3000/info/jsdoc
+`release <options: major|minor|patch>`| Creates a new release tag with options and updates the `CHANGELOG.md`
 
 ## Before a pull request / a release
 
