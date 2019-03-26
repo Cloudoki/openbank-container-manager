@@ -1,7 +1,6 @@
 const joi = require('joi')
 const containerSrvc = require('../../services/container')
 const kongConfig = require('../../config').get('kong').instance
-const Wreck = require('wreck')
 
 exports = module.exports = {}
 
