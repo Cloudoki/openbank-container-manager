@@ -1,12 +1,13 @@
 {
   "name": "openbank-container-manager",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "main": "src/index.js",
   "scripts": {
     "start": "NODE_PATH=. node src/index.js",
     "lint": "eslint src/ --ext .js",
     "test": "lab -I '__core-js_shared__' -r console -o stdout -r html -o test/coverage.html --context-timeout 2000 --timeout 4000",
-    "doc": "jsdoc -d docs -r src/"
+    "doc": "jsdoc -d docs -r src/",
+    "release": "standard-version"
   },
   "license": "",
   "dependencies": {
@@ -23,6 +24,7 @@
     "inert": "^5.1.0",
     "joi": "^13.6.0",
     "pino": "^4.17.6",
+    "standard-version": "5.0.2",
     "vision": "^5.3.3"
   },
   "devDependencies": {
@@ -30,5 +32,8 @@
     "eslint": "^5.2.0",
     "jsdoc": "^3.5.5",
     "lab": "^15.5.0"
+  },
+  "resolutions": {
+    "jsdoc/marked": "0.6.2"
   }
 }
