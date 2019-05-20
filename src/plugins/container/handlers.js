@@ -58,7 +58,7 @@ exports.start = {
 			await containerSrvc.start(request.params.image, org)
 			log.info(`END start container ${org}`)
 		} catch (error) {
-			log.info(`ERROR start container: ${error}`)
+			log.error(`ERROR start container: ${error}`)
 			return h.response(error.message).code(400)	
 		}
 
