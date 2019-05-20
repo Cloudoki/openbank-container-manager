@@ -1,6 +1,7 @@
 const joi = require('joi')
 const containerSrvc = require('../../services/container')
 const kongConfig = require('../../config').get('kong').instance
+const log = require('../../utils/logger')
 
 exports = module.exports = {}
 
@@ -13,7 +14,9 @@ exports.build = {
 	},
 	handler: async (request, h) => {
 
+		log.info(`START build image ${request.query.name}`)
 		await containerSrvc.buildImage(request.query.name, request.payload, `${__dirname}/../../../output/`)
+		log.info(`END build image ${request.query.name}`)
 
 		return h.response().code(200)
 
@@ -51,7 +54,9 @@ exports.start = {
 
 		try {
 			const org = request.headers['x-openbank-organization']
+			log.info(`START start container ${org}`)
 			await containerSrvc.start(request.params.image, org)
+			log.info(`END start container ${org}`)
 		} catch (error) {
 			return h.response(error.message).code(400)	
 		}
