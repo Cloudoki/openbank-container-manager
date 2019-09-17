@@ -1,6 +1,6 @@
 'use strict'
 
-const hapi = require('hapi')
+const hapi = require('@hapi/hapi')
 const config = require('./config')
 
 const log = require('./utils/logger')
